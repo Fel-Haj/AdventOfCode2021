@@ -1,28 +1,17 @@
-with open("input.txt") as f:
-    oxygen = f.readlines()
+def doSmth(input, mostCommon):
     for x in range(12):
-        zero = 0
-        for i, l in enumerate(oxygen):
-            if l[x] == "0":
-                zero += 1
-        most_common = '0' if zero > len(oxygen)/2 else '1' 
-        oxygen = [i for i in oxygen if most_common in i[x]]
-        print("oxygen: ", oxygen)
-        if len(oxygen) == 1:
-            break
-with open("input.txt") as f:    
-    co2 = f.readlines()
-    for x in range(12):
-        zero = 0    
-        for i, l in enumerate(co2):
-            if l[x] == "0":
-                zero += 1 
-        least_common = '1' if zero > len(co2)/2 else '0'
-        co2 = [line for line in co2 if least_common in line[x]]
-        print("co2: ", co2)
-        if len(co2) == 1:
-            break
-oxygen_dec = int(oxygen[0], 2)
-co2_dec = int(co2[0], 2)
-print(oxygen_dec, co2_dec)
-print(oxygen_dec * co2_dec)
+        amount = sum(i[x] == '1' for i in input)
+        if mostCommon == True:
+            value = '1' if amount >= len(input) / 2 else '0'
+        else:
+            value = '0' if amount >= len(input) / 2 else '1'
+        if len(input) > 1:
+            input = [i for i in input if i[x] == value]
+    return input[0]
+
+if __name__ == "__main__":
+    with open("input.txt") as f:
+        input = f.readlines()
+        oxygen = doSmth(input, True)
+        co2 = doSmth(input, False)
+    print(int(oxygen, 2) * int(co2, 2))
