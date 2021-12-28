@@ -1,6 +1,5 @@
 gamma = []
 epsilon = []
-product = []
 gamma_dec = 0
 epsilon_dec = 0
 for x in range(12):
